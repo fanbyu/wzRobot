@@ -1,0 +1,63 @@
+{
+  "name": {
+    "zh-cn": "wzRobot 综合驱动库",
+    "en": "wzRobot Universal Driver"
+  },
+  "description": {
+    "zh-cn": "五路循迹传感器 + 电机驱动板综合驱动库，支持DC电机、编码器电机、步进电机、舵机控制",
+    "en": "Five line tracker sensor + Motor driver board with DC motor, encoder motor, stepper motor and servo control"
+  },
+  "author": "Emakefun",
+  "email": "support@emakefun.com",
+  "license": "MIT",
+  "isBoard": false,
+  "id": "wzRobot",
+  "platform": [
+    "win",
+    "mac",
+    "web"
+  ],
+  "version": "0.0.1",
+  "asset": {
+    "arduinoC": {
+      "dir": "arduinoC/",
+      "version": "0.0.1",
+      "board": [
+        "arduino",
+        "arduinonano",
+        "mega2560",
+        "esp32",
+        "firebeetleesp32e"
+      ],
+      "main": "main.ts",
+      "files": [
+        "_images/featured.png",
+        "_images/icon.svg",
+        "_locales/zh-cn.json",
+        "_menus/arduino.json",
+        "_menus/arduinonano.json",
+        "_menus/arduinounor3.json",
+        "_menus/esp32.json",
+        "_menus/firebeetleesp32.json",
+        "_menus/leonardo.json",
+        "_menus/maqueen.json",
+        "_menus/maxbot.json",
+        "_menus/mega2560.json",
+        "_menus/microbit.json",
+        "_menus/romeo.json",
+        "_menus/telloesp32.json",
+        "libraries/line_tracker_V3/five_line_tracker_v3.h",
+        "libraries/line_tracker_V3/five_line_tracker_v3.cpp",
+        "libraries/motordriverboard/Emakefun_MotorDriver.h",
+        "libraries/motordriverboard/Emakefun_MotorDriver.cpp",
+        "libraries/motordriverboard/Emakefun_MS_PWMServoDriver.h",
+        "libraries/motordriverboard/Emakefun_MS_PWMServoDriver.cpp",
+        "libraries/motordriverboard/MsTimer2.h",
+        "libraries/motordriverboard/MsTimer2.cpp",
+        "libraries/motordriverboard/PID_v1.h",
+        "libraries/motordriverboard/PID_v1.cpp",
+        "libraries/motordriverboard/PinChangeInt.h"
+      ]
+    }
+  }
+}
