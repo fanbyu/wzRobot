@@ -4,11 +4,11 @@
     "en": "wzRobot Universal Driver"
   },
   "description": {
-    "zh-cn": "五路循迹传感器 + 电机驱动板综合驱动库，支持DC电机、编码器电机、步进电机、舵机控制",
-    "en": "Five line tracker sensor + Motor driver board with DC motor, encoder motor, stepper motor and servo control"
+    "zh-cn": "Sentry2视觉传感器 + 五路循迹传感器 + 电机驱动板综合驱动库",
+    "en": "Sentry2 vision sensor + Five line tracker sensor + Motor driver board universal driver"
   },
-  "author": "Emakefun",
-  "email": "support@emakefun.com",
+  "author": "fan",
+  "email": "fff1969@foxmail.com",
   "license": "MIT",
   "isBoard": false,
   "id": "wzRobot",
@@ -17,17 +17,22 @@
     "mac",
     "web"
   ],
-  "version": "0.0.1",
+  "version": "0.3",
   "asset": {
     "arduinoC": {
       "dir": "arduinoC/",
-      "version": "0.0.1",
+      "version": "0.3",
       "board": [
         "arduino",
         "arduinonano",
         "mega2560",
+        "microbit",
+        "maqueen",
         "esp32",
-        "firebeetleesp32e"
+        "firebeetleesp32",
+        "firebeetleesp32e",
+        "telloesp32",
+        "leonardo"
       ],
       "main": "main.ts",
       "files": [
@@ -56,7 +61,31 @@
         "libraries/motordriverboard/MsTimer2.cpp",
         "libraries/motordriverboard/PID_v1.h",
         "libraries/motordriverboard/PID_v1.cpp",
-        "libraries/motordriverboard/PinChangeInt.h"
+        "libraries/motordriverboard/PinChangeInt.h",
+        "libraries/Sentry-Arduino/src/Sengo1.h",
+        "libraries/Sentry-Arduino/src/Sengo2.h",
+        "libraries/Sentry-Arduino/src/Sentry.h",
+        "libraries/Sentry-Arduino/src/Sentry1.h",
+        "libraries/Sentry-Arduino/src/Sentry2.h",
+        "libraries/Sentry-Arduino/src/SentryFactory.cpp",
+        "libraries/Sentry-Arduino/src/SentryFactory.h",
+        "libraries/Sentry-Arduino/src/sentry_i2c.cpp",
+        "libraries/Sentry-Arduino/src/sentry_i2c.h",
+        "libraries/Sentry-Arduino/src/sentry_stream_base.h",
+        "libraries/Sentry-Arduino/src/sentry_type.h",
+        "libraries/Sentry-Arduino/src/sentry_uart.cpp",
+        "libraries/Sentry-Arduino/src/sentry_uart.h",
+        "libraries/Sentry-Arduino/src/debug/debug_tool.h",
+        "libraries/Sentry-Arduino/src/hardware/hw_conf.h",
+        "libraries/Sentry-Arduino/src/hardware/hw_sentry_i2c.cpp",
+        "libraries/Sentry-Arduino/src/hardware/hw_sentry_i2c.h",
+        "libraries/Sentry-Arduino/src/hardware/hw_sentry_uart.cpp",
+        "libraries/Sentry-Arduino/src/hardware/hw_sentry_uart.h",
+        "libraries/Sentry-Arduino/src/protoc/protocol_analysis.cpp",
+        "libraries/Sentry-Arduino/src/protoc/protocol_analysis.h",
+        "libraries/Sentry-Arduino/src/protoc/protocol_types.h",
+        "libraries/Sentry-Arduino/src/protoc/sentry_protocol_analysis.h",
+        "libraries/Sentry-Arduino/src/protoc/SimpleList.h"
       ]
     }
   }
