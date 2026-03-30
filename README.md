@@ -34,6 +34,14 @@ Sentry2视觉传感器 + 五路循迹传感器 + 电机驱动板
 ```bash
 python build.py
 ```
+commit 89c153e
+fix: 修复电机驱动和Sentry2编译问题
+
+- 电机驱动: 使用addInclude+addObject分离代码生成
+- Sentry2: 所有函数添加#include <Sentry.h>
+- 库打包: 使用libraries.zip统一打包所有库
+- 添加.gitignore排除样例目录
+- 添加repack_libs.py精简打包脚本
 
 ## 许可证
 
