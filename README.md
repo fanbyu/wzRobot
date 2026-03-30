@@ -22,6 +22,11 @@ Sentry2视觉传感器 + 五路循迹传感器 + 电机驱动板
 
 > 需要 Mind+ 1.8.0 RC3.0 及以上版本支持 `blockType="tag"`（category label）。
 
+备忘：
+ Mind+ 不支持在单个 main.ts 中使用多个命名空间进行代码生成 — 只有第一个命名空间（five_tracker_V3）的代码生成器被正确注册。
+
+解决方案：将三个模块合并到一个命名空间下，用 blockType="tag" 做视觉分组
+
 ## 打包
 
 运行以下命令打包为 `wzRobot-V0.0.3.mpext`：
