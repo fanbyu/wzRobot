@@ -1,0 +1,15 @@
+{
+    "five_infrared_tracking.init|block": "五路循线模块初始化IIC接口",
+    "five_infrared_tracking.setSensitivity|block": "五路循线模块设置检测灵敏度为 %num (0~1000，数值越高越灵敏)",
+    "five_infrared_tracking.readData|block": "五路循线模块读取数据",
+    "five_infrared_tracking.readAnalog|block": "五路循线模块读取 %channel 模拟值",
+    "five_infrared_tracking.readDigital|block": "五路循线模块 %channel 检测到 %type",
+    "five_infrared_tracking.readMultiDigital|block": "五路循线模块检测到 CH1:%ch1 CH2:%ch2 CH3:%ch3 CH4:%ch4 CH5:%ch5",
+    "CHANNEL.CH1|block": "第1路",
+    "CHANNEL.CH2|block": "第2路",
+    "CHANNEL.CH3|block": "第3路",
+    "CHANNEL.CH4|block": "第4路",
+    "CHANNEL.CH5|block": "第5路",
+    "WIRE_COLOR.WHITE|block": "白线",
+    "WIRE_COLOR.BLACK|block": "黑线"
+}

@@ -6,7 +6,7 @@
 namespace emakefun {
 class FiveLineTracker {
  public:
-  static constexpr uint8_t kDefaultI2cAddress = 0x70;  /**< 默认I2C地址 */
+  static constexpr uint8_t kDefaultI2cAddress = 0x50;
   static constexpr uint8_t kLineNumber = 5;
 
   /**

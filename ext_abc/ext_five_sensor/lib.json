@@ -1,0 +1,21 @@
+{
+    "id": "ext_five_infrared_tracking",
+    "index": 1,
+    "name": "Five Infrared Tracking",
+    "version": "1.0.0",
+    "dir": "Sensor/ext_five_sensor",
+    "main": "main.js",
+    "description": "使用IIC接口的五路循迹模块, 支持阈值调整于读取模拟值信号",
+    "description_EN": "Color sensor that identifies the corresponding color and converts it to RGB values.",
+    "iconURL": "ext_five_infrared_tracking.jpg",
+    "insetIconURL": "ext_five_infrared_tracking.jpg",
+    "rawURL": "ext_five_infrared_tracking.jpg",
+    "blocks": "arduino_uno_blocks.js",
+    "blocks_code": "arduino_uno_code.js",
+    "blocks_xml": "arduino_xml",
+    "arduino_lib": "lib",
+    "msg": "language.js",
+    "hardType": "atmega328p",
+    "tag":["Sensor"],
+    "category": "Arduino"
+}
