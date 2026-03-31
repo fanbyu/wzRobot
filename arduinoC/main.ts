@@ -228,7 +228,7 @@ enum RGB_COLOR {
 
 enum RGB_EFFECT {
     //% block="无"
-    NONE = 0,
+    NO_EFFECT = 0,
     //% block="呼吸"
     BREATHING = 1,
     //% block="旋转"
@@ -700,7 +700,7 @@ namespace wzRobot {
     //% block="RGB超声波模块[POSITION]灯亮颜色[COLOR]样式[EFFECT]" blockType="command"
     //% POSITION.shadow="dropdown" POSITION.options="RGB_POSITION" POSITION.defl="RGB_POSITION.ALL"
     //% COLOR.shadow="colorPicker" COLOR.defl="#ff0000"
-    //% EFFECT.shadow="dropdown" EFFECT.options="RGB_EFFECT" EFFECT.defl="RGB_EFFECT.NONE"
+    //% EFFECT.shadow="dropdown" EFFECT.options="RGB_EFFECT" EFFECT.defl="RGB_EFFECT.NO_EFFECT"
     export function setRgbUltrasoundColor(parameter: any, block: any) {
         let position = parameter.POSITION.code;
         let color = parameter.COLOR.code;
