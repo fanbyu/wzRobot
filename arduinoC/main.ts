@@ -226,17 +226,6 @@ enum RGB_COLOR {
     BLACK = 0x000000
 }
 
-enum RGB_EFFECT {
-    //% block="无"
-    NO_EFFECT = 0,
-    //% block="呼吸"
-    BREATHING = 1,
-    //% block="旋转"
-    ROTATE = 2,
-    //% block="闪烁"
-    FLASH = 3
-}
-
 //% color="#409EFF" iconWidth=50 iconHeight=40
 namespace wzRobot {
 
@@ -677,6 +666,49 @@ namespace wzRobot {
     }
 
     // ===== RGB超声波模块 =====
+
+    enum RGB_POSITION {
+        //% block="全部"
+        ALL = 0,
+        //% block="左边"
+        LEFT = 1,
+        //% block="右边"
+        RIGHT = 2
+    }
+
+    enum RGB_COLOR {
+        //% block="红色"
+        RED = 0xFF0000,
+        //% block="绿色"
+        GREEN = 0x00FF00,
+        //% block="蓝色"
+        BLUE = 0x0000FF,
+        //% block="黄色"
+        YELLOW = 0xFFFF00,
+        //% block="紫色"
+        PURPLE = 0xFF00FF,
+        //% block="橙色"
+        ORANGE = 0xFFA500,
+        //% block="靛蓝色"
+        INDIGO = 0x4B0082,
+        //% block="紫罗兰"
+        VIOLET = 0x8A2BE2,
+        //% block="白色"
+        WHITE = 0xFFFFFF,
+        //% block="熄灭"
+        BLACK = 0x000000
+    }
+
+    enum RGB_EFFECT {
+        //% block="无"
+        NO_EFFECT = 0,
+        //% block="呼吸"
+        BREATHING = 1,
+        //% block="旋转"
+        ROTATE = 2,
+        //% block="闪烁"
+        FLASH = 3
+    }
 
     //% block="RGB超声波模块" blockType="tag"
     export function rgbUltrasoundLabel() {}
