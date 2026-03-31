@@ -114,84 +114,84 @@ enum MODES {
 
 enum PIN_IO {
     //% block="1"
-    PIN_1 = 1,
+    PIN_1,
     //% block="2"
-    PIN_2 = 2,
+    PIN_2,
     //% block="3"
-    PIN_3 = 3,
+    PIN_3,
     //% block="4"
-    PIN_4 = 4,
+    PIN_4,
     //% block="5"
-    PIN_5 = 5,
+    PIN_5,
     //% block="6"
-    PIN_6 = 6,
+    PIN_6,
     //% block="7"
-    PIN_7 = 7,
+    PIN_7,
     //% block="8"
-    PIN_8 = 8,
+    PIN_8,
     //% block="9"
-    PIN_9 = 9,
+    PIN_9,
     //% block="10"
-    PIN_10 = 10,
+    PIN_10,
     //% block="11"
-    PIN_11 = 11,
+    PIN_11,
     //% block="12"
-    PIN_12 = 12,
+    PIN_12,
     //% block="13"
-    PIN_13 = 13,
+    PIN_13,
     //% block="A0"
-    PIN_A0 = 14,
+    PIN_A0,
     //% block="A1"
-    PIN_A1 = 15,
+    PIN_A1,
     //% block="A2"
-    PIN_A2 = 16,
+    PIN_A2,
     //% block="A3"
-    PIN_A3 = 17,
+    PIN_A3,
     //% block="A4"
-    PIN_A4 = 18,
+    PIN_A4,
     //% block="A5"
-    PIN_A5 = 19
+    PIN_A5
 }
 
 enum PIN_RGB {
     //% block="1"
-    PIN_1 = 1,
+    PIN_1,
     //% block="2"
-    PIN_2 = 2,
+    PIN_2,
     //% block="3"
-    PIN_3 = 3,
+    PIN_3,
     //% block="4"
-    PIN_4 = 4,
+    PIN_4,
     //% block="5"
-    PIN_5 = 5,
+    PIN_5,
     //% block="6"
-    PIN_6 = 6,
+    PIN_6,
     //% block="7"
-    PIN_7 = 7,
+    PIN_7,
     //% block="8"
-    PIN_8 = 8,
+    PIN_8,
     //% block="9"
-    PIN_9 = 9,
+    PIN_9,
     //% block="10"
-    PIN_10 = 10,
+    PIN_10,
     //% block="11"
-    PIN_11 = 11,
+    PIN_11,
     //% block="12"
-    PIN_12 = 12,
+    PIN_12,
     //% block="13"
-    PIN_13 = 13,
+    PIN_13,
     //% block="A0"
-    PIN_A0 = 14,
+    PIN_A0,
     //% block="A1"
-    PIN_A1 = 15,
+    PIN_A1,
     //% block="A2"
-    PIN_A2 = 16,
+    PIN_A2,
     //% block="A3"
-    PIN_A3 = 17,
+    PIN_A3,
     //% block="A4"
-    PIN_A4 = 18,
+    PIN_A4,
     //% block="A5"
-    PIN_A5 = 19
+    PIN_A5
 }
 
 enum RGB_POSITION {
