@@ -12,6 +12,7 @@ __pycache__/
 # IDE
 .idea/
 .vscode/
+.qoder/
 *.swp
 *.swo
 
@@ -19,3 +20,22 @@ __pycache__/
 *.tmp
 *.temp
 *.log
+temp_*.txt
+check_ts.py
+update_menus.py
+update_menus2.py
+fix_enums.py
+_fix_all.py
+_fix_colors.py
+repack_libs.py
+*.backup
+*.v3*
+*.v4*
+
+# 扩展包输出
+*.mpext
+*.zip
+
+# 原版参考资源
+ext_abc/
+参考资源/

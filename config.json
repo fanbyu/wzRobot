@@ -17,11 +17,11 @@
     "mac",
     "web"
   ],
-  "version": "0.3",
+  "version": "0.3.6",
   "asset": {
     "arduinoC": {
       "dir": "arduinoC/",
-      "version": "0.3",
+      "version": "0.3.6",
       "board": [
         "arduino",
         "arduinonano",
@@ -36,12 +36,9 @@
       ],
       "main": "main.ts",
       "files": [
-        "_images/featured.png",
-        "_images/icon.svg",
         "_locales/zh-cn.json",
         "_menus/arduino.json",
         "_menus/arduinonano.json",
-        "_menus/arduinounor3.json",
         "_menus/esp32.json",
         "_menus/firebeetleesp32.json",
         "_menus/leonardo.json",

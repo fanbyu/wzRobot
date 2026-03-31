@@ -8,7 +8,6 @@ import shutil
 import zipfile
 
 WZROBOT_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_NAME = 'wzRobot-V0.3.mpext'
 OUTPUT_DIR = os.path.join(WZROBOT_DIR, 'build')
 
 
@@ -23,17 +22,31 @@ def collect_files():
     shutil.copy2(config_path, os.path.join(OUTPUT_DIR, 'config.json'))
 
     # 复制所有文件
-    files = config['asset']['arduinoC']['files']
+    files = config['asset']['arduinoC'].get('files', [])
     copied = []
-    for file_path in files:
-        src = os.path.join(WZROBOT_DIR, 'arduinoC', file_path)
-        dst = os.path.join(OUTPUT_DIR, 'arduinoC', file_path)
-        if os.path.exists(src):
-            os.makedirs(os.path.dirname(dst), exist_ok=True)
-            shutil.copy2(src, dst)
-            copied.append(file_path)
-        else:
-            print(f'  [WARN] 文件不存在: {file_path}')
+    if files:
+        # 使用 files 列表
+        for file_path in files:
+            src = os.path.join(WZROBOT_DIR, 'arduinoC', file_path)
+            dst = os.path.join(OUTPUT_DIR, 'arduinoC', file_path)
+            if os.path.exists(src):
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                shutil.copy2(src, dst)
+                copied.append(file_path)
+            else:
+                print(f'  [WARN] 文件不存在: {file_path}')
+    else:
+        # 复制整个 arduinoC 目录
+        src_dir = os.path.join(WZROBOT_DIR, 'arduinoC')
+        dst_dir = os.path.join(OUTPUT_DIR, 'arduinoC')
+        for root, dirs, filenames in os.walk(src_dir):
+            for filename in filenames:
+                src = os.path.join(root, filename)
+                rel_path = os.path.relpath(src, src_dir)
+                dst = os.path.join(dst_dir, rel_path)
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                shutil.copy2(src, dst)
+                copied.append(rel_path)
 
     # 复制 main.ts（不在 files 列表中但需要）
     main_ts_src = os.path.join(WZROBOT_DIR, 'arduinoC', 'main.ts')
@@ -47,7 +60,8 @@ def collect_files():
 def pack_mpext(config):
     """打包为 .mpext（zip 格式）"""
     version = config.get('version', 'unknown')
-    output_file = os.path.join(WZROBOT_DIR, OUTPUT_NAME)
+    output_name = f'wzRobot-V{version}.mpext'
+    output_file = os.path.join(WZROBOT_DIR, output_name)
 
     with zipfile.ZipFile(output_file, 'w', zipfile.ZIP_DEFLATED) as zf:
         for root, dirs, files in os.walk(OUTPUT_DIR):
@@ -57,7 +71,7 @@ def pack_mpext(config):
                 zf.write(abs_path, arcname)
 
     size_kb = os.path.getsize(output_file) / 1024
-    print(f'[OK] 打包完成: {OUTPUT_NAME} ({size_kb:.1f} KB)')
+    print(f'[OK] 打包完成: {output_name} ({size_kb:.1f} KB)')
 
 
 def clean_tmp():
