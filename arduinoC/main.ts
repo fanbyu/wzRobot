@@ -550,4 +550,173 @@ namespace wzRobot {
         let obj = parameter.Class20_LABLE.code;
         Generator.addCode([`sentry.GetValue(Sentry2::kVision20Classes,kLabel,(int)${num})==${obj}`, Generator.ORDER_UNARY_POSTFIX]);
     }
+
+    // ===== RGB超声波模块 =====
+
+    //% block="RGB超声波模块" blockType="tag"
+    export function rgbUltrasoundLabel() {}
+}
+
+enum PIN_IO {
+    //% block="1"
+    PIN_1 = 1,
+    //% block="2"
+    PIN_2 = 2,
+    //% block="3"
+    PIN_3 = 3,
+    //% block="4"
+    PIN_4 = 4,
+    //% block="5"
+    PIN_5 = 5,
+    //% block="6"
+    PIN_6 = 6,
+    //% block="7"
+    PIN_7 = 7,
+    //% block="8"
+    PIN_8 = 8,
+    //% block="9"
+    PIN_9 = 9,
+    //% block="10"
+    PIN_10 = 10,
+    //% block="11"
+    PIN_11 = 11,
+    //% block="12"
+    PIN_12 = 12,
+    //% block="13"
+    PIN_13 = 13,
+    //% block="A0"
+    PIN_A0 = 14,
+    //% block="A1"
+    PIN_A1 = 15,
+    //% block="A2"
+    PIN_A2 = 16,
+    //% block="A3"
+    PIN_A3 = 17,
+    //% block="A4"
+    PIN_A4 = 18,
+    //% block="A5"
+    PIN_A5 = 19
+}
+
+enum PIN_RGB {
+    //% block="1"
+    PIN_1 = 1,
+    //% block="2"
+    PIN_2 = 2,
+    //% block="3"
+    PIN_3 = 3,
+    //% block="4"
+    PIN_4 = 4,
+    //% block="5"
+    PIN_5 = 5,
+    //% block="6"
+    PIN_6 = 6,
+    //% block="7"
+    PIN_7 = 7,
+    //% block="8"
+    PIN_8 = 8,
+    //% block="9"
+    PIN_9 = 9,
+    //% block="10"
+    PIN_10 = 10,
+    //% block="11"
+    PIN_11 = 11,
+    //% block="12"
+    PIN_12 = 12,
+    //% block="13"
+    PIN_13 = 13,
+    //% block="A0"
+    PIN_A0 = 14,
+    //% block="A1"
+    PIN_A1 = 15,
+    //% block="A2"
+    PIN_A2 = 16,
+    //% block="A3"
+    PIN_A3 = 17,
+    //% block="A4"
+    PIN_A4 = 18,
+    //% block="A5"
+    PIN_A5 = 19
+}
+
+enum RGB_POSITION {
+    //% block="全部"
+    ALL = 0,
+    //% block="左边"
+    LEFT = 1,
+    //% block="右边"
+    RIGHT = 2
+}
+
+enum RGB_COLOR {
+    //% block="红色"
+    RED = 0xFF0000,
+    //% block="绿色"
+    GREEN = 0x00FF00,
+    //% block="蓝色"
+    BLUE = 0x0000FF,
+    //% block="黄色"
+    YELLOW = 0xFFFF00,
+    //% block="紫色"
+    PURPLE = 0xFF00FF,
+    //% block="橙色"
+    ORANGE = 0xFFA500,
+    //% block="靛蓝色"
+    INDIGO = 0x4B0082,
+    //% block="紫罗兰"
+    VIOLET = 0x8A2BE2,
+    //% block="白色"
+    WHITE = 0xFFFFFF,
+    //% block="熄灭"
+    BLACK = 0x000000
+}
+
+enum RGB_EFFECT {
+    //% block="无"
+    NONE = 0,
+    //% block="呼吸"
+    BREATHING = 1,
+    //% block="旋转"
+    ROTATE = 2,
+    //% block="闪烁"
+    FLASH = 3
+}
+
+//% color="#71BE1E" iconWidth=50 iconHeight=40
+namespace wzRobot {
+
+    //% block="RGB超声波模块引脚初始化 IO[IO] RGB[RGB]" blockType="command"
+    //% IO.shadow="dropdown" IO.options="PIN_IO" IO.defl="PIN_IO.PIN_3"
+    //% RGB.shadow="dropdown" RGB.options="PIN_RGB" RGB.defl="PIN_RGB.PIN_4"
+    export function initRgbUltrasound(parameter: any, block: any) {
+        let io = parameter.IO.code;
+        let rgb = parameter.RGB.code;
+        
+        Generator.addInclude("rgb_ultrasound_include", `#include "RgbUltrasonic.h"`);
+        Generator.addObject("rgb_ultrasound_object", "RgbUltrasonic", `mRgbUltrasonic(${io}, ${rgb})`);
+    }
+
+    //% block="RGB超声波模块[POSITION]灯亮颜色[COLOR]样式[EFFECT]" blockType="command"
+    //% POSITION.shadow="dropdown" POSITION.options="RGB_POSITION" POSITION.defl="RGB_POSITION.ALL"
+    //% COLOR.shadow="colorPicker" COLOR.defl="#ff0000"
+    //% EFFECT.shadow="dropdown" EFFECT.options="RGB_EFFECT" EFFECT.defl="RGB_EFFECT.NONE"
+    export function setRgbUltrasoundColor(parameter: any, block: any) {
+        let position = parameter.POSITION.code;
+        let color = parameter.COLOR.code;
+        let effect = parameter.EFFECT.code;
+        
+        Generator.addInclude("rgb_ultrasound_include", `#include "RgbUltrasonic.h"`);
+        Generator.addObject("rgb_ultrasound_object", "RgbUltrasonic", `mRgbUltrasonic(3, 4)`);
+        
+        let colorCode = color.replace("#", "0x");
+        Generator.addCode(`mRgbUltrasonic.SetRgbEffect(${position}, ${colorCode}, ${effect});`);
+    }
+
+    //% block="RGB超声波模块读取超声波距离" blockType="reporter"
+    export function readRgbUltrasoundDistance(parameter: any, block: any) {
+        Generator.addInclude("rgb_ultrasound_include", `#include "RgbUltrasonic.h"`);
+        Generator.addObject("rgb_ultrasound_object", "RgbUltrasonic", `mRgbUltrasonic(3, 4)`);
+        
+        Generator.addCode([`mRgbUltrasonic.GetUltrasonicDistance()`, Blockly.Arduino.ORDER_ATOMIC]);
+    }
 }

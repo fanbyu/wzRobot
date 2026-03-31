@@ -15,6 +15,9 @@ includes = {
         'PID_v1.h', 'PID_v1.cpp',
         'PinChangeInt.h',
     ],
+    'rgb_ultrasound': [
+        'RgbUltrasonic.h', 'RgbUltrasonic.cpp',
+    ],
     'Sentry-Arduino': None,  # 整个 src 目录 + library.properties + keywords.txt
 }
 
@@ -27,20 +30,28 @@ with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
             for f in files:
                 src = os.path.join(libs_dir, lib, f)
                 arcname = f'{lib}/{f}'
-                zf.write(src, arcname)
+                if os.path.exists(src):
+                    zf.write(src, arcname)
+                else:
+                    print(f'[WARN] 文件不存在: {src}')
         else:
             # Sentry-Arduino: 只包含 src/ 目录和元数据文件
             src_dir = os.path.join(libs_dir, lib, 'src')
-            for root, dirs, filenames in os.walk(src_dir):
-                for fn in filenames:
-                    full = os.path.join(root, fn)
-                    rel = os.path.relpath(full, libs_dir).replace('\\', '/')
-                    zf.write(full, rel)
-            # library.properties
-            zf.write(os.path.join(libs_dir, lib, 'library.properties'),
-                     f'{lib}/library.properties')
-            zf.write(os.path.join(libs_dir, lib, 'keywords.txt'),
-                     f'{lib}/keywords.txt')
+            if os.path.exists(src_dir):
+                for root, dirs, filenames in os.walk(src_dir):
+                    for fn in filenames:
+                        full = os.path.join(root, fn)
+                        rel = os.path.relpath(full, libs_dir).replace('\\', '/')
+                        zf.write(full, rel)
+                # library.properties
+                if os.path.exists(os.path.join(libs_dir, lib, 'library.properties')):
+                    zf.write(os.path.join(libs_dir, lib, 'library.properties'),
+                             f'{lib}/library.properties')
+                if os.path.exists(os.path.join(libs_dir, lib, 'keywords.txt')):
+                    zf.write(os.path.join(libs_dir, lib, 'keywords.txt'),
+                             f'{lib}/keywords.txt')
+            else:
+                print(f'[WARN] 目录不存在: {src_dir}')
 
 size_kb = os.path.getsize(zip_path) / 1024
 print(f'[OK] libraries.zip 已重新打包 ({size_kb:.1f} KB)')
