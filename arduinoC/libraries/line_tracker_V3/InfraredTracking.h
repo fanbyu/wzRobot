@@ -9,6 +9,10 @@ class InfraredTracking {
 public:
   static constexpr uint8_t kChannelCount = 5;
 
+private:
+  uint8_t _addr;
+
+public:
   /**
    * @brief 构造函数
    * @param addr I2C地址，默认0x50

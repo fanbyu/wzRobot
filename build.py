@@ -12,48 +12,41 @@ OUTPUT_DIR = os.path.join(WZROBOT_DIR, 'build')
 
 
 def collect_files():
-    """从 config.json 收集文件列表并复制到 build 目录"""
+    """从 config.json 收集文件并复制到 build 目录，模拟 Mind+ 自动扫描"""
     config_path = os.path.join(WZROBOT_DIR, 'config.json')
     with open(config_path, 'r', encoding='utf-8') as f:
         config = json.load(f)
+
+    arduinoC_src = os.path.join(WZROBOT_DIR, 'arduinoC')
+    arduinoC_dst = os.path.join(OUTPUT_DIR, 'arduinoC')
 
     # 复制 config.json
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     shutil.copy2(config_path, os.path.join(OUTPUT_DIR, 'config.json'))
 
-    # 复制所有文件
-    files = config['asset']['arduinoC'].get('files', [])
     copied = []
-    if files:
-        # 使用 files 列表
-        for file_path in files:
-            src = os.path.join(WZROBOT_DIR, 'arduinoC', file_path)
-            dst = os.path.join(OUTPUT_DIR, 'arduinoC', file_path)
-            if os.path.exists(src):
-                os.makedirs(os.path.dirname(dst), exist_ok=True)
-                shutil.copy2(src, dst)
-                copied.append(file_path)
-            else:
-                print(f'  [WARN] 文件不存在: {file_path}')
-    else:
-        # 复制整个 arduinoC 目录
-        src_dir = os.path.join(WZROBOT_DIR, 'arduinoC')
-        dst_dir = os.path.join(OUTPUT_DIR, 'arduinoC')
-        for root, dirs, filenames in os.walk(src_dir):
-            for filename in filenames:
-                src = os.path.join(root, filename)
-                rel_path = os.path.relpath(src, src_dir)
-                dst = os.path.join(dst_dir, rel_path)
-                os.makedirs(os.path.dirname(dst), exist_ok=True)
-                shutil.copy2(src, dst)
-                copied.append(rel_path)
+    # 需要复制的子目录（与 Mind+ 自动扫描一致）
+    asset_dirs = ['_menus', '_locales', '_images']
+    for dirname in asset_dirs:
+        src_dir = os.path.join(arduinoC_src, dirname)
+        dst_dir = os.path.join(arduinoC_dst, dirname)
+        if os.path.isdir(src_dir):
+            shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
+            count = sum(len(files) for _, _, files in os.walk(dst_dir))
+            copied.append(f'{dirname}/ ({count} files)')
 
-    # 复制 main.ts（不在 files 列表中但需要）
-    main_ts_src = os.path.join(WZROBOT_DIR, 'arduinoC', 'main.ts')
-    main_ts_dst = os.path.join(OUTPUT_DIR, 'arduinoC', 'main.ts')
-    shutil.copy2(main_ts_src, main_ts_dst)
+    # 复制 libraries.zip（Mind+ 只需要 zip 文件）
+    libraries_zip_src = os.path.join(arduinoC_src, 'libraries', 'libraries.zip')
+    if os.path.exists(libraries_zip_src):
+        os.makedirs(os.path.join(arduinoC_dst, 'libraries'), exist_ok=True)
+        shutil.copy2(libraries_zip_src, os.path.join(arduinoC_dst, 'libraries', 'libraries.zip'))
+        copied.append('libraries.zip')
 
-    print(f'[OK] 已复制 {len(copied)} 个资源文件 + main.ts')
+    # 复制 main.ts
+    main_ts_src = os.path.join(arduinoC_src, 'main.ts')
+    shutil.copy2(main_ts_src, os.path.join(arduinoC_dst, 'main.ts'))
+
+    print(f'[OK] 已复制: main.ts, {", ".join(copied)}')
     return config
 
 

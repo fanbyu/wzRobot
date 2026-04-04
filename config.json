@@ -4,51 +4,27 @@
     "en": "wzRobot Universal Driver"
   },
   "description": {
-    "zh-cn": "Sentry2视觉传感器 + 五路循迹传感器 + 电机驱动板综合驱动库",
-    "en": "Sentry2 vision sensor + Five line tracker sensor + Motor driver board universal driver"
+    "zh-cn": "Sentry2视觉传感器 + 五路循迹传感器 + 电机驱动板 + RGB超声波模块综合驱动库",
+    "en": "Sentry2 vision sensor + Five line tracker + Motor driver board + RGB ultrasonic sensor driver"
   },
   "author": "fan",
   "email": "fff1969@foxmail.com",
   "license": "MIT",
   "isBoard": false,
   "id": "wzRobot",
-  "platform": [
-    "win",
-    "mac",
-    "web"
-  ],
-  "version": "0.3.6",
+  "platform": ["win", "mac", "web"],
+  "version": "0.3.7",
   "asset": {
     "arduinoC": {
       "dir": "arduinoC/",
-      "version": "0.3.6",
-      "board": [
-        "arduino",
-        "arduinonano",
-        "mega2560",
-        "microbit",
-        "maqueen",
-        "esp32",
-        "firebeetleesp32",
-        "firebeetleesp32e",
-        "telloesp32",
-        "leonardo"
-      ],
+      "version": "0.3.7",
+      "board": ["arduino"],
       "main": "main.ts",
       "files": [
-        "_locales/zh-cn.json",
         "_menus/arduino.json",
-        "_menus/arduinonano.json",
-        "_menus/esp32.json",
-        "_menus/firebeetleesp32.json",
-        "_menus/leonardo.json",
-        "_menus/maqueen.json",
-        "_menus/maxbot.json",
-        "_menus/mega2560.json",
-        "_menus/microbit.json",
-        "_menus/romeo.json",
-        "_menus/telloesp32.json",
-        "libraries/libraries.zip"
+        "_locales/zh-cn.json",
+        "_images/icon.svg",
+        "_images/featured.png"
       ]
     }
   }
