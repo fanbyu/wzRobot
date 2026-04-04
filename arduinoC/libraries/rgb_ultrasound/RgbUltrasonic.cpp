@@ -6,21 +6,39 @@ RgbUltrasonic::RgbUltrasonic(int io, int rgb) {
     
     pinMode(ioPin, OUTPUT);
     pinMode(rgbPin, OUTPUT);
+    digitalWrite(rgbPin, LOW); // 默认关闭
+}
+
+void RgbUltrasonic::SetRgbColor(uint8_t r, uint8_t g, uint8_t b) {
+    // 使用 SetRgbEffect 设置全部灯为指定颜色常亮
+    unsigned long color = ((unsigned long)r << 16) | ((unsigned long)g << 8) | (unsigned long)b;
+    SetRgbEffect(0, color, 1); // position=0(全部), effect=1(常亮)
 }
 
 void RgbUltrasonic::SetRgbEffect(int position, unsigned long color, int effect) {
-    // RGB LED control implementation
-    // position: 0=ALL, 1=LEFT, 2=RIGHT
-    // color: RGB color value
-    // effect: 0=NONE, 1=BREATHING, 2=ROTATE, 3=FLASH
+    if (effect == 0) { // 关闭
+        RgbOff();
+        return;
+    }
     
-    // TODO: Implement RGB LED control logic
+    // TODO: 完整实现RGB LED控制逻辑
+    // position: 0=ALL, 1=LEFT, 2=RIGHT
+    // color: RGB packed value
+    // effect: 1=BREATHING 2=FLASH 3=FLOW 4=RAINBOW
+    
+    if (effect == 1) { // 常亮
+        analogWrite(rgbPin, (color >> 16) & 0xFF); // 简化：只取R通道亮度
+    } else if (effect == 3) { // 闪烁
+        digitalWrite(rgbPin, !digitalRead(rgbPin));
+    }
+    // 其他效果待完善
+}
+
+void RgbUltrasonic::RgbOff() {
+    digitalWrite(rgbPin, LOW);
 }
 
 float RgbUltrasonic::GetUltrasonicDistance() {
-    // Ultrasonic distance measurement
-    // Returns distance in cm
-    
     digitalWrite(ioPin, LOW);
     delayMicroseconds(2);
     digitalWrite(ioPin, HIGH);

@@ -230,7 +230,7 @@ namespace wzRobot {
     //% SERVO.shadow="dropdown" SERVO.options="SERVOS" SERVO.defl="1"
     export function releaseServoMotor(parameter: any) {
         let servoValue = parameter.SERVO.code;
-        Generator.addCode(`Servo_${servoValue}->releaseServo();`);
+        Generator.addCode(`Servo_${servoValue}->writeServo(0);`);
     }
 
     //% block="读取舵机 [SERVO] 角度" blockType="reporter"
@@ -428,7 +428,7 @@ namespace wzRobot {
     export function rgbUltrasoundInit(parameter: any) {
         let pin = parameter.PIN_IO.code;
         Generator.addInclude('RgbUltrasonic_include', '#include <RgbUltrasonic.h>', true);
-        Generator.addObject('rgbUltrasonic_object', 'RgbUltrasonic', `rgbUltrasonic(${pin});`, true);
+        Generator.addObject('rgbUltrasonic_object', 'RgbUltrasonic', `rgbUltrasonic(${pin}, ${pin})`, true);
     }
 
     //% block="RGB超声波 获取距离 cm" blockType="reporter"
@@ -451,7 +451,8 @@ namespace wzRobot {
     //% EFFECT.shadow="dropdown" EFFECT.options="RGB_EFFECT" EFFECT.defl="0"
     export function rgbUltrasoundSetEffect(parameter: any) {
         let effect = parameter.EFFECT.code;
-        Generator.addCode(`rgbUltrasonic.SetRgbEffect(${effect});`);
+        // effect值直接传给SetRgbEffect(position=0全部, color=0, effect)
+        Generator.addCode(`rgbUltrasonic.SetRgbEffect(0, 0, ${effect});`);
     }
 
     //% block="RGB超声波 关闭灯光" blockType="command"
