@@ -35,12 +35,25 @@ def collect_files():
             count = sum(len(files) for _, _, files in os.walk(dst_dir))
             copied.append(f'{dirname}/ ({count} files)')
 
-    # 复制 libraries.zip（Mind+ 只需要 zip 文件）
-    libraries_zip_src = os.path.join(arduinoC_src, 'libraries', 'libraries.zip')
-    if os.path.exists(libraries_zip_src):
-        os.makedirs(os.path.join(arduinoC_dst, 'libraries'), exist_ok=True)
-        shutil.copy2(libraries_zip_src, os.path.join(arduinoC_dst, 'libraries', 'libraries.zip'))
-        copied.append('libraries.zip')
+    # 复制 libraries.zip 和解压后的库文件（确保 Mind+ 能找到）
+    libraries_src = os.path.join(arduinoC_src, 'libraries')
+    libraries_dst = os.path.join(arduinoC_dst, 'libraries')
+    if os.path.isdir(libraries_src):
+        # 复制整个 libraries 目录
+        shutil.copytree(libraries_src, libraries_dst, dirs_exist_ok=True)
+        
+        # 如果存在 libraries.zip，也解压它
+        libraries_zip = os.path.join(libraries_dst, 'libraries.zip')
+        if os.path.exists(libraries_zip):
+            try:
+                import zipfile
+                with zipfile.ZipFile(libraries_zip, 'r') as zip_ref:
+                    zip_ref.extractall(libraries_dst)
+                print('[OK] 已解压 libraries.zip')
+            except Exception as e:
+                print(f'[WARNING] 解压 libraries.zip 失败: {e}')
+        
+        copied.append('libraries/')
 
     # 复制 main.ts
     main_ts_src = os.path.join(arduinoC_src, 'main.ts')

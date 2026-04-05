@@ -19,8 +19,6 @@
 #include "sentry_stream_base.h"
 #include "sentry_uart.h"
 
-namespace tosee_sentry {
-
 class SentryFactory {
  public:
   /**
@@ -30,7 +28,8 @@ class SentryFactory {
    * @retval none
    */
   SentryFactory(uint32_t address, uint8_t device_id,
-                sentry_vision_state_t** vision_state, const int vision_max_type,
+                sentry_vision_state_t** vision_state,
+                const int vision_max_type,
                 const int vision_qrcode_type = 0);
   virtual ~SentryFactory();
 
@@ -40,16 +39,14 @@ class SentryFactory {
    * @retval SENTRY_OK: begin success.
    *         other: protocol assert fail.
    */
-  virtual uint8_t begin(HwSentryUart::hw_uart_t communication_port,
-                        bool set_default = true);
+  virtual uint8_t begin(HwSentryUart::hw_uart_t communication_port);
   /**
    * @brief  Sentry begin with I2c.
    * @param  communication_port: i2c port.
    * @retval SENTRY_OK: begin success.
    *         other: protocol assert fail.
    */
-  virtual uint8_t begin(HwSentryI2C::hw_i2c_t* communication_port,
-                        bool set_default = true);
+  virtual uint8_t begin(HwSentryI2C::hw_i2c_t* communication_port);
 
   // Based interface
   /**
@@ -74,7 +71,7 @@ class SentryFactory {
    * @retval information value
    */
   virtual int GetValue(int vision_type, sentry_obj_info_e obj_info,
-                       int obj_id = 1);
+                       int obj_id = 0);
   virtual char* GetQrCodeValue() {
     if (qrcode_state_) {
       return qrcode_state_->qrcode_result[0].str;
@@ -108,19 +105,10 @@ class SentryFactory {
    *         other:  error
    */
   virtual uint8_t SetParam(int vision_type, sentry_object_t* param,
-                           int param_id = 1) {
-    if (param_id <= 0) {
+                   int param_id = 0) {
+    if (param_id < 0 || param_id >= SENTRY_MAX_RESULT) {
       return SENTRY_FAIL;
     }
-    /* Vision Color's parameter number should <= SENTRY_MAX_RESULT */
-    if (vision_type == 1 && param_id > SENTRY_MAX_RESULT) {
-      return SENTRY_FAIL;
-    }
-    else if (param_id > 25)
-    {
-      return SENTRY_FAIL;
-    }
-
     return stream_->SetParam(vision_type, param, param_id);
   }
   /**
@@ -133,8 +121,7 @@ class SentryFactory {
    * @retval vision result buffer pointer,
    *         return `nullptr` if the vision type is not `begin` or not supported
    */
-  virtual const sentry_vision_state_t* GetVisionState(int vision_type);
-  virtual uint8_t SetVisionState(int vision_type, sentry_vision_state_t& state);
+  virtual sentry_vision_state_t* GetVisionState(int vision_type);
 
   // Advance interface
   /**
@@ -152,15 +139,15 @@ class SentryFactory {
    * @param  obj_info  object information
    * @retval information value
    */
-  virtual int read(int vision_type, sentry_obj_info_e obj_info,
-                   uint8_t obj_id = 1);
-  virtual int readQrCode(sentry_obj_info_e obj_info);
+  virtual uint8_t read(int vision_type, sentry_obj_info_e obj_info,
+                       uint8_t obj_id = 0);
+  virtual uint8_t readQrCode(sentry_obj_info_e obj_info);
 
   // Sensor functions
   //!< @brief  restart Sentry
   virtual uint8_t SensorSetRestart(void);
   //!< @brief  set all register to default value(include baud rate)
-  virtual uint8_t SensorSetDefault(bool vision_default_only = true);
+  virtual uint8_t SensorSetDefault(void);
   /**
    * @brief  Set result coordinate type.
    * @param  type coordinate type.
@@ -171,8 +158,7 @@ class SentryFactory {
 
   // LED functions
   /**
-   * @brief  Set led color, if detected_color == undetected_color, LED will
-   * always on.
+   * @brief  Set led color, if detected_color == undetected_color, LED will always on.
    * @param  detected_color led color while sensor detected target.
    * @param  undetected_color led color while sensor undetected target.
    * @param  level  led brightness, form 0(close) to 15
@@ -191,6 +177,21 @@ class SentryFactory {
    *         other  error
    */
   virtual uint8_t CameraSetZoom(sentry_camera_zoom_e);
+  // /**
+  //  * @brief  rotate camera.
+  //  * @param  enable true: rotate camera.
+  //  *                 false: default
+  //  * @retval SENTRY_OK  success
+  //  *         other  error
+  //  */
+  // virtual uint8_t CameraSetRotate(bool enable);
+  // /**
+  //  * @brief  set camera FPS.
+  //  * @param  camera FPS type.
+  //  * @retval SENTRY_OK:  success
+  //  *         other:  error
+  //  */
+  // virtual uint8_t CameraSetFPS(sentry_camera_fps_e);
   /**
    * @brief  set camera white balance.
    * @param  camera white balance type.
@@ -228,69 +229,6 @@ class SentryFactory {
    */
   virtual uint8_t UartSetBaudrate(sentry_baudrate_e);
 
-  /**
-   * @brief Start to take a snapshot from camera/screen to SD
-   * card/UART/USB/WIFI. Receive Image data by ImageReceive functions
-   * @param image_dest Send image to SD or UART or USB or WIFI ports
-   * @param image_src Image capture from camera or screen
-   * @param image_type Snapshot image format
-   * @retval SENTRY_OK:  success
-   *         other:  error
-   */
-  virtual uint8_t Snapshot(
-      uint8_t image_dest, sentry_snapshot_src_e image_src = kSnapshotFromCamera,
-      sentry_snapshot_type_e image_type = kSnapshotTypeJPEG);
-
-  // Screen functions
-  /**
-   * @brief User image coordinate config.
-   * @param image_id Image ID, 1~8
-   * @param x_value X value
-   * @param y_value Y value
-   * @param width Image width
-   * @param height Image height
-   * @retval SENTRY_OK:  success
-   *         other:  error
-   */
-  virtual uint8_t UserImageCoordinateConfig(uint8_t image_id, uint16_t x_value,
-                                            uint16_t y_value, uint16_t width,
-                                            uint16_t height);
-  /**
-   * @brief Screen config
-   * @param enable Enable/Disable screen
-   * @param only_user_image Only display user image and don't display image from
-   * camera
-   * @retval SENTRY_OK:  success
-   *         other:  error
-   */
-  virtual uint8_t ScreenConfig(bool enable, bool only_user_image = false);
-  /**
-   * @brief Show user image(from SD card) on screen.
-   * @param image_id Image ID
-   * @retval SENTRY_OK:  success
-   *         other:  error
-   */
-  virtual uint8_t ScreenShow(uint8_t image_id, uint8_t auto_reload = true);
-  /**
-   * @brief Show user image(from flash) on screen.
-   * @param image_id Image ID
-   * @retval SENTRY_OK:  success
-   *         other:  error
-   */
-  virtual uint8_t ScreenShowFromFlash(uint8_t image_id,
-                                      uint8_t auto_reload = true);
-  /**
-   * @brief Fill the screen with colored(RGB) block.
-   * @param image_id Image ID
-   * @param r Red channel value
-   * @param g Green channel value
-   * @param b Blue channel value
-   * @retval SENTRY_OK:  success
-   *         other:  error
-   */
-  virtual uint8_t ScreenFill(uint8_t image_id, uint8_t r, uint8_t g, uint8_t b,
-                             uint8_t auto_reload = true);
-
   // Vision functions
   /**
    * @brief  set vision status.
@@ -313,35 +251,14 @@ class SentryFactory {
    * @retval vision status
    */
   virtual bool VisionGetStatus(int vision_type);
-  /**
-   * @brief  set vision mode.
-   * @retval vision mode
-   */
-  virtual uint8_t VisionSetMode(int vision_type, int mode);
-  /**
-   * @brief  Get vision mode.
-   * @retval vision mode
-   */
-  virtual uint8_t VisionGetMode(int vision_type, int *mode);
-  /**
-   * @brief  set vision level.
-   * @retval vision Level
-   */
-  virtual uint8_t VisionSetLevel(int vision_type, sentry_vision_level_e level);
-  /**
-   * @brief  get vision level.
-   * @retval vision Level
-   */
-  virtual uint8_t VisionGetLevel(int vision_type, sentry_vision_level_e *level);
   virtual int rows() { return (int)img_h_; }
   virtual int cols() { return (int)img_w_; }
 
   SentryFactory(const SentryFactory&) = delete;
-  SentryFactory(SentryFactory&&) = delete;
   SentryFactory& operator=(const SentryFactory&) = delete;
 
  protected:
-  uint8_t SensorInit(bool set_default = true);
+  uint8_t SensorInit();
   uint8_t SensorLockReg(bool lock);
   uint8_t SensorStartupCheck();
   uint8_t ProtocolVersionCheck();
@@ -360,7 +277,5 @@ class SentryFactory {
   sentry_vision_state_t** vision_state_ = nullptr;
   sentry_qrcode_state_t* qrcode_state_ = nullptr;
 };
-
-}  // namespace tosee_sentry
 
 #endif /* SENTRY_FACTORY_H_ */

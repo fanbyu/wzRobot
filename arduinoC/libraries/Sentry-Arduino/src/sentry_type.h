@@ -15,17 +15,28 @@
 #ifndef SENTRY_TYPE_H_
 #define SENTRY_TYPE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 
 #include "hardware/hw_conf.h"
 
-namespace tosee_sentry {
-
 typedef unsigned char sentry_err_t;
+
+#ifdef BIT
+#undef BIT
+#endif
+#define BIT(x) (0x01<<(x))
 
 #if !defined(SENTRY_MAX_RESULT)
 #define SENTRY_MAX_RESULT                 25
 #endif
+
+#define SENTRY_DEVICE_ID                  0x04
+#define SENTRY_FIRMWARE_VERSION           0xFF
+#define visionTypeEnumToMacro(v)      (BIT(v-1))
 
 /* Sentry error type */
 #define SENTRY_OK                         0x00
@@ -36,6 +47,20 @@ typedef unsigned char sentry_err_t;
 #define SENTRY_UNSUPPORT_PARAM            0x10
 #define SENTRY_UNKNOWN_PROTOCOL           0x11
 
+// typedef enum {
+//   kVisionColor            = 1,
+//   kVisionBlob             = 2,
+//   kVisionAprilTag         = 3,
+//   kVisionLine             = 4,
+//   kVisionBody             = 5,
+//   kVisionCard             = 6,
+//   kVisionFace             = 7,
+//   kVision20Classes        = 8,
+//   kVisionQrCode           = 9,
+//   kVisionObjTrack         = 10,
+//   kVisionMotionDetect     = 11,
+//   kVisionMaxType          ,
+// } sentry_vision_e;
 typedef enum {
   kLedClose           = 0,
   kLedRed             = 1,
@@ -56,16 +81,13 @@ typedef enum {
   kRegLedConfig       = 0x06,
   kRegLedLevel        = 0x08,
   kRegUart            = 0x09,
-  kRegUSBConfig       = 0x0B,
-  kRegScreenConfig    = 0x0C,
-  kRegWiFiConfig      = 0x0E,
+  kRegUSBCongig       = 0x0B,
   kRegHWConfig        = 0x0F,
   kRegCameraConfig1   = 0x10,
   kRegCameraConfig2   = 0x11,
   kRegCameraConfig3   = 0x12,
   kRegCameraConfig4   = 0x13,
   kRegCameraConfig5   = 0x14,
-  kRegSnapshot        = 0x1A,
   kRegFrameWidthH     = 0x1B,
   kRegFrameWidthL     = 0x1C,
   kRegFrameHeightH    = 0x1D,
@@ -103,21 +125,6 @@ typedef enum {
   kRegResultData4L    = 0x87,
   kRegResultData5H    = 0x88,
   kRegResultData5L    = 0x89,
-  kRegImageID         = 0x90,
-  kRegImageConfig     = 0x91,
-  kRegImageWriteAddr  = 0x92,
-  kRegImageReadAddr   = 0x93,
-  kRegImageXH         = 0x94,
-  kRegImageXL         = 0x95,
-  kRegImageYH         = 0x96,
-  kRegImageYL         = 0x97,
-  kRegImageWidthH     = 0x98,
-  kRegImageWidthL     = 0x99,
-  kRegImageHeightH    = 0x9A,
-  kRegImageHeightL    = 0x9B,
-  kRegScreenFillR     = 0x9C,
-  kRegScreenFillG     = 0x9D,
-  kRegScreenFillB     = 0x9E,
   kRegSn              = 0xD0,
 } sentry_reg_e;
 
@@ -142,16 +149,6 @@ typedef enum {
   kBaud1152000  = 0x06,
   kBaud2000000  = 0x07,
 } sentry_baudrate_e;
-typedef enum {
-  kWiFiBaud9600 = 0x00,
-  kWiFiBaud74880 = 0x01,
-  kWiFiBaud115200 = 0x02,
-  kWiFiBaud921600 = 0x03,
-  kWiFiBaud1152000 = 0x04,
-  kWiFiBaud2000000 = 0x05,
-  kWiFiBaud3000000 = 0x06,
-  kWiFiBaud4000000 = 0x07,
-} sentry_wifi_baudrate_e;
 typedef enum {
   kStatus,        //!< whether the target is detected
   kXValue,        //!< target horizontal position
@@ -183,40 +180,16 @@ typedef enum {
   kWhiteBalanceCalibrating,
 } sentry_camera_white_balance_e;
 typedef enum {
-  kLevelDefault         = 0,
-  kLevelSpeed           = 1,      //!< speed first mode
-  kLevelBalance         = 2,      //!< balance mode
-  kLevelAccuracy        = 3,      //!< accuracy first mode
-} sentry_vision_level_e;
-typedef enum {
   kAbsoluteCoordinate = 0,
   kPercentageCoordinate = 1,
 } sentry_coordinate_type_e;
-typedef enum {
-  kSnapshot2SD = 1,
-  kSnapshot2Uart = 2,
-  kSnapshot2Usb = 4,
-  kSnapshot2Wifi = 8,
-} sentry_snapshot_dest_e;
-typedef enum {
-  kSnapshotFromCamera = 0,
-  kSnapshotFromScreen = 1,
-} sentry_snapshot_src_e;
-typedef enum {
-  kSnapshotTypeRGB565 = 2,
-  kSnapshotTypeJPEG = 4,
-  kSnapshotTypeJPEGBase64 = 5,
-} sentry_snapshot_type_e;
-
 /* register type */
 typedef union {
   struct {
-    uint8_t start_up : 1;
-    uint8_t auto_save : 1;
-    uint8_t default_setting : 1;  //!< set 1 reset all config
-    uint8_t disable_vison : 1;
-    uint8_t keep_vision_status : 1;
-    uint8_t reserved : 3;
+    unsigned char start_up :1;
+    unsigned char auto_save :1;
+    unsigned char default_setting :1;  //!< set 1 reset all config
+    unsigned char disable_vison :1;
   };
   unsigned char sensor_config_reg_value;
 } sentry_sensor_conf_t;
@@ -251,13 +224,7 @@ typedef union {
   };
   unsigned char vision_config_reg_value;
 } sentry_vision_conf1_t;
-typedef union {
-  struct {
-    unsigned char mode : 4;
-    sentry_vision_level_e level : 4;
-  };
-  unsigned char value;
-} sentry_vision_conf2_t;
+
 typedef union {
   struct {
     unsigned char output_mode :2;
@@ -266,47 +233,6 @@ typedef union {
   };
   unsigned char value;
 } sentry_hw_conf_t;
-
-typedef union {
-  struct {
-    uint8_t send2sd : 1;
-    uint8_t send2uart : 1;
-    uint8_t send2usb : 1;
-    uint8_t send2wifi : 1;
-    uint8_t source : 1;
-    sentry_snapshot_type_e image_type : 3;
-  };
-  uint8_t value;
-} sentry_snapshot_conf_t;
-
-typedef union {
-  struct {
-    uint8_t enable : 1;
-    uint8_t baudrate : 3;
-    uint8_t send2uart : 1;
-    uint8_t send2usb : 1;
-  };
-  uint8_t value;
-} sentry_wifi_conf_t;
-
-typedef union {
-  struct {
-    uint8_t enable : 1;
-    uint8_t only_user_image : 1;
-  };
-  uint8_t value;
-} sentry_screen_conf_t;
-
-typedef union {
-  struct {
-    uint8_t show : 1;
-    uint8_t source : 2;
-    uint8_t reserved : 1;
-    uint8_t ready : 1;
-    uint8_t auto_reload : 1;
-  };
-  uint8_t value;
-} sentry_image_conf_t;
 
 typedef struct {
   union {
@@ -360,6 +286,8 @@ typedef struct {
   sentry_qrcode_t qrcode_result[1];
 } sentry_qrcode_state_t;
 
-}  // namespace tosee_sentry
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SENTRY_TYPE_H_ */

@@ -5,24 +5,22 @@
 #include <stdint.h>
 #include "../hardware/hw_conf.h"
 
-namespace tosee_sentry {
-
 #ifdef SENTRY_MAX_RESULT
-  /* QRCode = (cmd + frame + version_id + start_id + stop_id + (x,y,w,h,num_code) * sizeof(uint16) + ALIGN_UP(num_code * sizeof(uint16), 10)) + protocol_size */
-  #define SENTRY_QRCODE_BUFFER_MAX_SIZE ((5 + 10 + 34 * 2 + 2) + 6)
-  /* Object = (cmd + frame + version_id + start_id + stop_id + max_result * ((x,y,w,h,l) * sizeof(uint16))) + protocol_size */
-  #define SENTRY_OBJECT_BUFFER_MAX_SIZE ((5 + SENTRY_MAX_RESULT * 10) + 6)
-  #if SENTRY_QRCODE_BUFFER_MAX_SIZE > SENTRY_OBJECT_BUFFER_MAX_SIZE
-    #define PROTOCOL_SINGLE_BUFFER_SIZE SENTRY_QRCODE_BUFFER_MAX_SIZE
-  #else
-    #define PROTOCOL_SINGLE_BUFFER_SIZE SENTRY_OBJECT_BUFFER_MAX_SIZE
-  #endif /* SENTRY_OBJECT_BUFFER_MAX_SIZE ((5 + SENTRY_MAX_RESULT * 10) + 6) */
+/* QRCode = (cmd + frame + version_id + start_id + stop_id + (x,y,w,h,num_code) * sizeof(uint16) + ALIGN_UP(num_code * sizeof(uint16), 10)) + protocol_size */
+#define SENTRY_QRCODE_BUFFER_MAX_SIZE ((5 + 10 + 34 * 2 + 2) + 6)
+/* Object = (cmd + frame + version_id + start_id + stop_id + max_result * ((x,y,w,h,l) * sizeof(uint16))) + protocol_size */
+#define SENTRY_OBJECT_BUFFER_MAX_SIZE ((5 + SENTRY_MAX_RESULT * 10) + 6)
+#if SENTRY_QRCODE_BUFFER_MAX_SIZE > SENTRY_OBJECT_BUFFER_MAX_SIZE
+#define PROTOCOL_SINGLE_BUFFER_SIZE SENTRY_QRCODE_BUFFER_MAX_SIZE
 #else
-  #define PROTOCOL_SINGLE_BUFFER_SIZE 256
+#define PROTOCOL_SINGLE_BUFFER_SIZE SENTRY_OBJECT_BUFFER_MAX_SIZE
+#endif /* SENTRY_OBJECT_BUFFER_MAX_SIZE ((5 + SENTRY_MAX_RESULT * 10) + 6) */
+#else
+#define PROTOCOL_SINGLE_BUFFER_SIZE 256
 #endif /* SENTRY_MAX_RESULT */
 #if PROTOCOL_SINGLE_BUFFER_SIZE > 256
-  #undef PROTOCOL_SINGLE_BUFFER_SIZE
-  #define PROTOCOL_SINGLE_BUFFER_SIZE 256
+#undef PROTOCOL_SINGLE_BUFFER_SIZE
+#define PROTOCOL_SINGLE_BUFFER_SIZE 256
 #endif /* PROTOCOL_SINGLE_BUFFER_SIZE > 256 */
 #define PROTOCOL_BUFFER_DEEP 1
 
@@ -54,15 +52,13 @@ struct device_t {
   data_queue_t data_q;
 };
 
-typedef _SimpleNode<device_t> device_node_t;
-typedef _SimpleList<device_node_t> device_list_t;
+typedef SimpleNode<device_t> device_node_t;
+typedef SimpleList<device_node_t> device_list_t;
 struct port_t {
   port_addr_t port_addr;
   device_list_t device_list;
 };
-typedef _SimpleNode<port_t> port_node_t;
-typedef _SimpleList<port_node_t> port_list_t;
-
-}  // namespace tosee_sentry
+typedef SimpleNode<port_t> port_node_t;
+typedef SimpleList<port_node_t> port_list_t;
 
 #endif /* PROTOCOL_TYPES_H_ */

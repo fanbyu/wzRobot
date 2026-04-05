@@ -19,32 +19,27 @@
 #include "protoc/sentry_protocol_analysis.h"
 #include "sentry_stream_base.h"
 
-namespace tosee_sentry {
-
 class SentryUart
     : public SentryStreamBase,
       SentryPtotocolAnalysis<HwSentryUart, HwSentryUart::hw_uart_t> {
  public:
   SentryUart(HwSentryUart::hw_uart_t hw_port, uint32_t address);
-  virtual ~SentryUart();
+  virtual ~SentryUart(void);
   SentryUart(const SentryUart&) = delete;
   SentryUart& operator=(const SentryUart&) = delete;
 
-  sentry_err_t Get(const uint8_t reg_address, uint8_t* value) override;
-  sentry_err_t Set(const uint8_t reg_address, const uint8_t value) override;
-  sentry_err_t SetParam(int vision_type, sentry_object_t* param,
-                        int param_id) override;
-  sentry_err_t Read(int vision_type,
-                    sentry_vision_state_t* vision_state) override;
-  sentry_err_t ReadQrCode(int vision_type,
-                          sentry_qrcode_state_t* qrcode) override;
-  sentry_err_t Write(int vision_type,
-                     const sentry_vision_state_t* vision_state) override;
+  virtual sentry_err_t Get(const uint8_t reg_address, uint8_t* value) override;
+  virtual sentry_err_t Set(const uint8_t reg_address,
+                           const uint8_t value) override;
+  virtual sentry_err_t SetParam(int vision_type, sentry_object_t* param,
+                                int param_id) override;
+  virtual sentry_err_t Read(int vision_type,
+                            sentry_vision_state_t* vision_state) override;
+  virtual sentry_err_t ReadQrCode(int vision_type,
+                                  sentry_qrcode_state_t* qrcode) override;
 
  private:
  protected:
 };
-
-}  // namespace tosee_sentry
 
 #endif /* SENTRY_UART_H_ */

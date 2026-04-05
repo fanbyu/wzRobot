@@ -41,7 +41,7 @@ namespace wzRobot {
         let ch = parameter.CHANNEL.code;
         Generator.addInclude("five_tracking_include", `#include "InfraredTracking.h"`);
         Generator.addObject("five_tracking_object", "InfraredTracking", `_5line_track(INFRARED_I2C_ADDR)`);
-        Generator.addCode([`_5line_track.ir_track[${ch}]`, Generator.ORDER_UNARY_POSTFIX]);
+        Generator.addCode([`_5line_track.ir_track${ch}`, Generator.ORDER_UNARY_POSTFIX]);
     }
 
     //% block="五路循迹 [CHANNEL] 检测到 [COLOR]" blockType="boolean"

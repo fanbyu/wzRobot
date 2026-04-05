@@ -18,8 +18,6 @@
 #include <stdint.h>
 #include "sentry_type.h"
 
-namespace tosee_sentry {
-
 class SentryStreamBase {
  public:
   SentryStreamBase(void) {}
@@ -36,14 +34,10 @@ class SentryStreamBase {
                             sentry_vision_state_t* vision_state) = 0;
   virtual sentry_err_t ReadQrCode(int vision_type,
                                   sentry_qrcode_state_t* qrcode) = 0;
-  virtual sentry_err_t Write(int vision_type,
-                             const sentry_vision_state_t* vision_state) = 0;
 
  private:
  protected:
   uint32_t sentry_address_ = 0;
 };
-
-}
 
 #endif /* SENTRY_COMMUNICATION_BASE_H_ */

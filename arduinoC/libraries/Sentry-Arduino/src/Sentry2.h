@@ -17,8 +17,6 @@
 
 #include <SentryFactory.h>
 
-namespace tosee_sentry {
-
 #define SENTRY2_DEVICE_ID 0x04
 
 class Sentry2 : public SentryFactory {
@@ -40,13 +38,15 @@ class Sentry2 : public SentryFactory {
     kVisionFace = 7,
     kVision20Classes = 8,
     kVisionQrCode = 9,
-    kVisionCustom = 10,
+    kVisionObjTrack = 10,
     kVisionMotionDetect = 11,
     kVisionMaxType,
   };
 
   /* SentryFactory label */
-  enum { kUnknownLabel = 0 };
+  enum {
+    kUnknownLabel = 0
+  };
   /* Sentry card label */
   enum card_label_e {
     kCardForward = 1,
@@ -78,6 +78,32 @@ class Sentry2 : public SentryFactory {
     kCardSeven = 27,
     kCardEight = 28,
     kCardNine = 29,
+    kCardA = 31,
+    kCardB = 32,
+    kCardC = 33,
+    kCardD = 34,
+    kCardE = 35,
+    kCardF = 36,
+    kCardG = 37,
+    kCardH = 38,
+    kCardI = 39,
+    kCardJ = 40,
+    kCardK = 41,
+    kCardL = 42,
+    kCardM = 43,
+    kCardN = 44,
+    kCardO = 45,
+    kCardP = 46,
+    kCardQ = 47,
+    kCardR = 48,
+    kCardS = 49,
+    kCardT = 50,
+    kCardU = 51,
+    kCardV = 52,
+    kCardW = 53,
+    kCardX = 54,
+    kCardY = 55,
+    kCardZ = 56
   };
   /* SentryFactory 20 classes label */
   enum class20_label_e {
@@ -91,16 +117,16 @@ class Sentry2 : public SentryFactory {
     kCat = 8,
     kChair = 9,
     kCow = 10,
-    kDiningTable = 11,
+    kTable = 11,
     kDog = 12,
     kHorse = 13,
     kMotorBike = 14,
     kPerson = 15,
-    kPottedPlant = 16,
+    kPlant = 16,
     kSheep = 17,
     kSofa = 18,
     kTrain = 19,
-    kTvMonitor = 20
+    kMonitor = 20
   };
   /* SentryFactory color label */
   enum color_label_e {
@@ -149,7 +175,7 @@ class Sentry2 : public SentryFactory {
    *         other:  error
    */
   uint8_t SetParam(sentry_vision_e vision_type, sentry_object_t* param,
-                   int param_id = 1) {
+                   int param_id = 0) {
     return SentryFactory::SetParam((int)vision_type, param, param_id);
   }
   /**
@@ -160,7 +186,7 @@ class Sentry2 : public SentryFactory {
    * @retval information value
    */
   int GetValue(sentry_vision_e vision_type, sentry_obj_info_e obj_info,
-               int obj_id = 1) {
+               int obj_id = 0) {
     return SentryFactory::GetValue((int)vision_type, obj_info, obj_id);
   }
 
@@ -179,7 +205,5 @@ class Sentry2 : public SentryFactory {
  private:
   sentry_vision_state_t* product_vision_state_[kVisionMaxType - 1] = {nullptr};
 };
-
-}  // namespace tosee_sentry
 
 #endif /* SENTRY2_H_ */

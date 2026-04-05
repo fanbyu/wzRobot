@@ -3,8 +3,6 @@
 
 #include "protocol_types.h"
 
-namespace tosee_sentry {
-
 class PtotocolAnalysis {
  public:
   PtotocolAnalysis(port_addr_t uart,
@@ -35,6 +33,6 @@ class PtotocolAnalysis {
   dev_addr_t address_;
 };
 
-}  // namespace tosee_sentry
+
 
 #endif /* PROTOCOL_ANALYSIS_H_ */

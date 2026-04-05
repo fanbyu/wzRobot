@@ -15,12 +15,6 @@
 #ifndef SENTRY_H_
 #define SENTRY_H_
 
-#include "Sentry1.h"
 #include "Sentry2.h"
-
-#include "Sengo1.h"
-#include "Sengo2.h"
-
-using namespace tosee_sentry;
 
 #endif /* SENTRY_H_ */
