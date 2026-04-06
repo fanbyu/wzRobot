@@ -14,44 +14,42 @@
 #include <stdio.h>
 #include <string.h>
 
-namespace tosee_sentry {
-
 /*
- * @brief Node for class _SimpleList.
- * @see _SimpleList
+ * @brief Node for class SimpleList.
+ * @see SimpleList
  */
 template <class element_t>
-class _SimpleNode {
+class SimpleNode {
  public:
   //!< Default constructor.
-  _SimpleNode() : next_(nullptr) {}
-  _SimpleNode(element_t& element) : element_(element), next_(nullptr) {}
-  _SimpleNode(element_t&& element) : element_(element), next_(nullptr) {}
-  ~_SimpleNode() {}
-  _SimpleNode& operator=(const _SimpleNode&) = delete;
-  _SimpleNode(const _SimpleNode&) = delete;
+  SimpleNode() : next_(nullptr) {}
+  SimpleNode(element_t& element) : element_(element), next_(nullptr) {}
+  SimpleNode(element_t&& element) : element_(element), next_(nullptr) {}
+  ~SimpleNode() {}
+  SimpleNode& operator=(const SimpleNode&) = delete;
+  SimpleNode(const SimpleNode&) = delete;
 
   element_t element_;            //!< The element in node.
-  _SimpleNode<element_t>* next_;  //!< Next node address.
+  SimpleNode<element_t>* next_;  //!< Next node address.
 };
 
 /*
  * @brief A simple list class, this class will not malloc any memory,
  *        but u must instantiation the node by yourself.
- * @see _SimpleNode
+ * @see SimpleNode
  */
 template <class node_t>
-class _SimpleList {
+class SimpleList {
  public:
   //!< Default constructor.
-  _SimpleList() {}
-  ~_SimpleList() {}
-  _SimpleList& operator=(const _SimpleList& list) {
+  SimpleList() {}
+  ~SimpleList() {}
+  SimpleList& operator=(const SimpleList& list) {
     this->size_ = list.size_;
     this->head_ = list.head_;
     return *this;
   }
-  _SimpleList(const _SimpleList& list) {
+  SimpleList(const SimpleList& list) {
     this->size_ = list.size_;
     this->head_ = list.head_;
   }
@@ -221,8 +219,8 @@ class _SimpleList {
 };
 
 template <class element_t, size_t DEEP,
-          template <class> class node_t = _SimpleNode>
-class SimpleQueue : public _SimpleList<node_t<element_t>> {
+          template <class> class node_t = SimpleNode>
+class SimpleQueue : public SimpleList<node_t<element_t>> {
  public:
   SimpleQueue() {}
   ~SimpleQueue() {}
@@ -237,7 +235,7 @@ class SimpleQueue : public _SimpleList<node_t<element_t>> {
    * @see size()
    */
   element_t& peek(void) {
-    return _SimpleList<node_t<element_t>>::front()->element_;
+    return SimpleList<node_t<element_t>>::front()->element_;
   };
   /*
    * @brief Pop the first element in the queue, once u run pop(), the
@@ -248,7 +246,7 @@ class SimpleQueue : public _SimpleList<node_t<element_t>> {
    * @see size()
    */
   __attribute__((noinline)) element_t& pop(void) {
-    node_t<element_t>* node = _SimpleList<node_t<element_t>>::pop_front();
+    node_t<element_t>* node = SimpleList<node_t<element_t>>::pop_front();
     if (node) {
       first_++;
       if (first_ >= DEEP) {
@@ -265,11 +263,11 @@ class SimpleQueue : public _SimpleList<node_t<element_t>> {
    * @retval The element reference witch u push.
    */
   __attribute__((noinline)) element_t& push(const element_t& elem) {
-    if (_SimpleList<node_t<element_t>>::size() >= DEEP) {
+    if (SimpleList<node_t<element_t>>::size() >= DEEP) {
       pop();
     }
     memcpy(&node_[last_].element_, &elem, sizeof(element_t));
-    _SimpleList<node_t<element_t>>::push_back(&node_[last_]);
+    SimpleList<node_t<element_t>>::push_back(&node_[last_]);
     last_++;
     if (last_ >= DEEP) {
       last_ = 0;
@@ -278,10 +276,10 @@ class SimpleQueue : public _SimpleList<node_t<element_t>> {
   }
   void showMessage() {
     printf("first_ = %u, last_ = %u, size = %u\n", first_, last_,
-           _SimpleList<node_t<element_t>>::size());
+           SimpleList<node_t<element_t>>::size());
   }
   void clear(void) {
-    _SimpleList<node_t<element_t>>::clear();
+    SimpleList<node_t<element_t>>::clear();
     first_ = 0;
     last_ = 0;
   }
@@ -293,26 +291,26 @@ class SimpleQueue : public _SimpleList<node_t<element_t>> {
 };
 
 // template<typename element_t>
-// _SimpleList<element_t>::_SimpleList() {
+// SimpleList<element_t>::SimpleList() {
 //}
 //
 // template<typename element_t>
-// _SimpleList<element_t>::~_SimpleList() {
+// SimpleList<element_t>::~SimpleList() {
 //}
 
 // int main () {
 //    int element = 100;
-//    _SimpleNode<int> node1(&element);
+//    SimpleNode<int> node1(&element);
 //    int element2 = 101;
-//    _SimpleNode<int> node2(&element2);
+//    SimpleNode<int> node2(&element2);
 //    int element3 = 102;
-//    _SimpleNode<int> node3(&element3);
+//    SimpleNode<int> node3(&element3);
 //    int element4 = 104;
-//    _SimpleNode<int> node4(&element4);
+//    SimpleNode<int> node4(&element4);
 //    int element5 = 105;
-//    _SimpleNode<int> node5(&element5);
-//    _SimpleNode<int>* elem;
-//    _SimpleList<_SimpleNode<int>> list;
+//    SimpleNode<int> node5(&element5);
+//    SimpleNode<int>* elem;
+//    SimpleList<SimpleNode<int>> list;
 //    list.push_front(&node1);
 //    list.push_front(&node2);
 //    list.push_front(&node3);
@@ -330,7 +328,5 @@ class SimpleQueue : public _SimpleList<node_t<element_t>> {
 //    cout<<"hello world";
 //    return 0;
 //}
-
-}  // namespace tosee_sentry
 
 #endif

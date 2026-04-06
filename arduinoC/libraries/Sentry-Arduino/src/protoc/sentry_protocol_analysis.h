@@ -4,17 +4,14 @@
 #include "protocol_analysis.h"
 #include "sentry_type.h"
 
-namespace tosee_sentry {
-
 // Protocol
 #define SENTRY_PROTOC_START 0xFF
 #define SENTRY_PROTOC_END 0xED
 #define SENTRY_PROTOC_COMMADN_SET 0x01
 #define SENTRY_PROTOC_COMMADN_GET 0x02
-#define SENTRY_PROTOC_MESSAGE 0x11
 #define SENTRY_PROTOC_SET_PARAM 0x21
 #define SENTRY_PROTOC_GET_RESULT 0x23
-#define SENTRY_PROTOC_SET_RESULT 0x25
+#define SENTRY_PROTOC_MESSAGE 0x11
 
 template <class STREAM, class HW_T>
 class SentryPtotocolAnalysis : public PtotocolAnalysis, protected STREAM {
@@ -120,7 +117,4 @@ uint8_t SentryPtotocolAnalysis<STREAM, HW_T>::check(uint8_t* buf, size_t size) {
   }
   return (uint8_t)(sum & 0xFF);
 }
-
-}  // namespace tosee_sentry
-
 #endif /* SENTRY_PROTOCOL_ANALYSIS_H_ */

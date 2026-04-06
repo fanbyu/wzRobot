@@ -1,8 +1,6 @@
 #include "protocol_analysis.h"
 #include "debug/debug_tool.h"
 
-namespace tosee_sentry {
-
 port_list_t PtotocolAnalysis::port_list_;
 
 PtotocolAnalysis::PtotocolAnalysis(port_addr_t port_addr,
@@ -104,5 +102,3 @@ void PtotocolAnalysis::releasePort() {
 #endif
   }
 }
-
-}  // namespace tosee_sentry
