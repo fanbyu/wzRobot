@@ -423,12 +423,14 @@ namespace wzRobot {
     //% block="RGB超声波" blockType="tag" weight=70
     export function rgbUltrasoundTag(parameter: any) {}
 
-    //% block="RGB超声波 初始化 引脚 [PIN_IO]" blockType="command"
-    //% PIN_IO.shadow="dropdown" PIN_IO.options="PIN_IO" PIN_IO.defl="2"
+    //% block="RGB超声波 初始化 信号引脚 [SIGNAL_PIN] RGB引脚 [RGB_PIN]" blockType="command"
+    //% SIGNAL_PIN.shadow="dropdown" SIGNAL_PIN.options="PIN_IO" SIGNAL_PIN.defl="2"
+    //% RGB_PIN.shadow="dropdown" RGB_PIN.options="PIN_IO" RGB_PIN.defl="3"
     export function rgbUltrasoundInit(parameter: any) {
-        let pin = parameter.PIN_IO.code;
+        let signalPin = parameter.SIGNAL_PIN.code;
+        let rgbPin = parameter.RGB_PIN.code;
         Generator.addInclude('RgbUltrasonic_include', '#include <RgbUltrasonic.h>', true);
-        Generator.addObject('rgbUltrasonic_object', 'RgbUltrasonic', `rgbUltrasonic(${pin}, ${pin})`, true);
+        Generator.addObject('rgbUltrasonic_object', 'RgbUltrasonic', `rgbUltrasonic(${signalPin}, ${rgbPin})`, true);
     }
 
     //% block="RGB超声波 获取距离 cm" blockType="reporter"
@@ -444,7 +446,8 @@ namespace wzRobot {
         let r = parameter.R.code;
         let g = parameter.G.code;
         let b = parameter.B.code;
-        Generator.addCode(`rgbUltrasonic.SetRgbColor(${r}, ${g}, ${b});`);
+        // 使用 SetRgbEffect 的重载版本，position=0 表示所有LED
+        Generator.addCode(`rgbUltrasonic.SetRgbEffect(0, ${r}, ${g}, ${b});`);
     }
 
     //% block="RGB超声波 设置灯效 [EFFECT]" blockType="command"

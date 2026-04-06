@@ -13,11 +13,11 @@
   "isBoard": false,
   "id": "wzRobot",
   "platform": ["win", "mac", "web"],
-  "version": "0.3.8",
+  "version": "0.3.9",
   "asset": {
     "arduinoC": {
       "dir": "arduinoC/",
-      "version": "0.3.8",
+      "version": "0.3.9",
       "board": ["arduino"],
       "main": "main.ts",
       "files": [
