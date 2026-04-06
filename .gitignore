@@ -1,0 +1,21 @@
+﻿# Build directories
+build/
+cache/
+*.tmp
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+
+# Backup files
+*.backup*
+*_backup_*
+*.zip

@@ -1,0 +1,31 @@
+{
+  "name": {
+    "zh-cn": "wzRobot 综合驱动库",
+    "en": "wzRobot Universal Driver"
+  },
+  "description": {
+    "zh-cn": "Sentry2视觉传感器 + 五路循迹传感器 + 电机驱动板 + RGB超声波模块综合驱动库",
+    "en": "Sentry2 vision sensor + Five line tracker + Motor driver board + RGB ultrasonic sensor driver"
+  },
+  "author": "fan",
+  "email": "fff1969@foxmail.com",
+  "license": "MIT",
+  "isBoard": false,
+  "id": "wzRobot",
+  "platform": ["win", "mac", "web"],
+  "version": "0.3.9",
+  "asset": {
+    "arduinoC": {
+      "dir": "arduinoC/",
+      "version": "0.3.9",
+      "board": ["arduino"],
+      "main": "main.ts",
+      "files": [
+        "_menus/arduino.json",
+        "_locales/zh-cn.json",
+        "_images/icon.svg",
+        "_images/featured.png"
+      ]
+    }
+  }
+}

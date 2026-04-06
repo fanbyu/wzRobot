@@ -1,0 +1,41 @@
+# 样例目录
+Sentry2-MindPlus-main样例/
+emakefun-motordriverboard样例/
+
+# 构建输出
+build/
+
+# Python缓存
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+.vscode/
+.qoder/
+*.swp
+*.swo
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+temp_*.txt
+check_ts.py
+update_menus.py
+update_menus2.py
+fix_enums.py
+_fix_all.py
+_fix_colors.py
+repack_libs.py
+*.backup
+*.v3*
+*.v4*
+
+# 扩展包输出
+*.mpext
+*.zip
+
+# 原版参考资源
+ext_abc/
+参考资源/
