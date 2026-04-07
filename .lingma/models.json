@@ -1,0 +1,20 @@
+{
+  "customModels": [
+    {
+      "id": "qwen/qwen3.6-plus-preview:free",
+      "name": "Qwen3.6 Plus Preview (Free)",
+      "vendor": "OpenRouter",
+      "url": "https://openrouter.ai/api/v1",
+      "apiKey": "${input:openrouter.api.key}",
+      "maxInputTokens": 1000000,
+      "maxOutputTokens": 32000,
+      "supportsToolCall": true,
+      "supportsVision": false,
+      "supportsReasoning": true,
+      "description": "阿里云通义千问3.6 Plus预览版，100万上下文窗口，限时免费"
+    }
+  ],
+  "availableModels": [
+    "qwen/qwen3.6-plus-preview:free"
+  ]
+}

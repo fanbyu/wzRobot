@@ -1,0 +1,290 @@
+{
+    "CHANNEL": {
+        "menu": [
+            ["第1路", "1"],
+            ["第2路", "2"],
+            ["第3路", "3"],
+            ["第4路", "4"],
+            ["第5路", "5"]
+        ]
+    },
+    "WIRE_COLOR": {
+        "menu": [
+            ["白线", "1"],
+            ["黑线", "0"]
+        ]
+    },
+    "PINS": {
+        "menu": [
+            ["S1", "1"],
+            ["S2", "2"],
+            ["S3", "3"],
+            ["S4", "4"],
+            ["S5", "5"],
+            ["S6", "6"],
+            ["S7", "7"],
+            ["S8", "8"]
+        ]
+    },
+    "MOTORS": {
+        "menu": [
+            ["M1", "1"],
+            ["M2", "2"],
+            ["M3", "3"],
+            ["M4", "4"]
+        ]
+    },
+    "DIRECTIONS": {
+        "menu": [
+            ["正转", "FORWARD"],
+            ["反转", "BACKWARD"],
+            ["刹车", "BRAKE"],
+            ["释放", "RELEASE"]
+        ]
+    },
+    "SERVOS": {
+        "menu": [
+            ["S1", "1"],
+            ["S2", "2"],
+            ["S3", "3"],
+            ["S4", "4"],
+            ["S5", "5"],
+            ["S6", "6"],
+            ["S7", "7"],
+            ["S8", "8"]
+        ]
+    },
+    "ENCODERS": {
+        "menu": [
+            ["Encoder1", "1"],
+            ["Encoder2", "2"],
+            ["Encoder3", "3"],
+            ["Encoder4", "4"]
+        ]
+    },
+    "STEPPERS": {
+        "menu": [
+            ["Stepper1", "1"],
+            ["Stepper2", "2"]
+        ]
+    },
+    "STEPPER_DIRECTIONS": {
+        "menu": [
+            ["正转", "FORWARD"],
+            ["反转", "BACKWARD"]
+        ]
+    },
+    "MODES": {
+        "menu": [
+            ["双拍(DOUBLE)", "DOUBLE"],
+            ["单拍(SINGLE)", "SINGLE"],
+            ["交错(INTERLEAVE)", "INTERLEAVE"]
+        ]
+    },
+    "LEVELS": {
+        "menu": [
+            ["高电平", "HIGH"],
+            ["低电平", "LOW"]
+        ]
+    },
+    "PIN_IO": {
+        "menu": [
+            ["2", "2"],
+            ["3", "3"],
+            ["4", "4"],
+            ["5", "5"],
+            ["6", "6"],
+            ["7", "7"],
+            ["8", "8"],
+            ["9", "9"],
+            ["A0", "A0"],
+            ["A1", "A1"],
+            ["A2", "A2"],
+            ["A3", "A3"]
+        ]
+    },
+    "SENTRY_MODE": {
+        "menu": [
+            ["I2C", "Wire"],
+            ["软串口1", "softwareSerial1"],
+            ["软串口2", "softwareSerial2"],
+            ["软串口3", "softwareSerial3"],
+            ["软串口4", "softwareSerial4"]
+        ]
+    },
+    "SENTRY_ADDR": {
+        "menu": [
+            ["0x60", "0x60"],
+            ["0x61", "0x61"],
+            ["0x62", "0x62"],
+            ["0x63", "0x63"]
+        ]
+    },
+    "VISION_TYPE_ALL": {
+        "menu": [
+            ["颜色", "Sentry2::kVisionColor"],
+            ["色块", "Sentry2::kVisionBlob"],
+            ["AprilTag", "Sentry2::kVisionAprilTag"],
+            ["线条", "Sentry2::kVisionLine"],
+            ["学习识别", "Sentry2::kVisionLearning"],
+            ["卡片", "Sentry2::kVisionCard"],
+            ["人脸", "Sentry2::kVisionFace"],
+            ["20分类", "Sentry2::kVision20Classes"],
+            ["二维码", "Sentry2::kVisionQrCode"],
+            ["自定义", "Sentry2::kVisionCustom"],
+            ["运动检测", "Sentry2::kVisionMotionDetect"]
+        ]
+    },
+    "VISION_TYPE_VALUE": {
+        "menu": [
+            ["色块", "Sentry2::kVisionBlob"],
+            ["AprilTag", "Sentry2::kVisionAprilTag"],
+            ["学习识别", "Sentry2::kVisionLearning"],
+            ["卡片", "Sentry2::kVisionCard"],
+            ["人脸", "Sentry2::kVisionFace"],
+            ["20分类", "Sentry2::kVision20Classes"],
+            ["运动检测", "Sentry2::kVisionMotionDetect"]
+        ]
+    },
+    "VISION_TYPE_NUM": {
+        "menu": [
+            ["颜色", "Sentry2::kVisionColor"],
+            ["色块", "Sentry2::kVisionBlob"],
+            ["自定义", "Sentry2::kVisionCustom"]
+        ]
+    },
+    "VISION_TYPE_CUSTOM": {
+        "menu": [
+            ["颜色", "Sentry2::kVisionColor"],
+            ["色块", "Sentry2::kVisionBlob"],
+            ["学习识别", "Sentry2::kVisionLearning"],
+            ["人脸", "Sentry2::kVisionFace"],
+            ["自定义", "Sentry2::kVisionCustom"]
+        ]
+    },
+    "VISION_STA": {
+        "menu": [
+            ["运行", "ON"],
+            ["停止", "OFF"]
+        ]
+    },
+    "AWB": {
+        "menu": [
+            ["自动", "kAutoWhiteBalance"],
+            ["锁定", "kLockWhiteBalance"],
+            ["白光", "kWhiteLight"],
+            ["黄光", "kYellowLight"],
+            ["校准中", "kWhiteBalanceCalibrating"]
+        ]
+    },
+    "COLOR_LABLE": {
+        "menu": [
+            ["黑色", "Sentry2::kColorBlack"],
+            ["白色", "Sentry2::kColorWhite"],
+            ["红色", "Sentry2::kColorRed"],
+            ["绿色", "Sentry2::kColorGreen"],
+            ["蓝色", "Sentry2::kColorBlue"],
+            ["黄色", "Sentry2::kColorYellow"]
+        ]
+    },
+    "CARD_LABLE": {
+        "menu": [
+            ["前进", "Sentry2::kCardForward"],
+            ["左转", "Sentry2::kCardLeft"],
+            ["右转", "Sentry2::kCardRight"],
+            ["掉头", "Sentry2::kCardTurnAround"],
+            ["停车", "Sentry2::kCardPark"],
+            ["绿灯", "Sentry2::kCardGreenLight"],
+            ["红灯", "Sentry2::kCardRedLight"],
+            ["限速40", "Sentry2::kCardSpeed40"],
+            ["限速60", "Sentry2::kCardSpeed60"],
+            ["限速80", "Sentry2::kCardSpeed80"],
+            ["通过", "Sentry2::kCardCheck"],
+            ["叉号", "Sentry2::kCardCross"],
+            ["圆圈", "Sentry2::kCardCircle"],
+            ["方框", "Sentry2::kCardSquare"],
+            ["三角", "Sentry2::kCardTriangle"],
+            ["加号", "Sentry2::kCardPlus"],
+            ["减号", "Sentry2::kCardMinus"],
+            ["除号", "Sentry2::kCardDivide"],
+            ["等号", "Sentry2::kCardEqual"],
+            ["数字0", "Sentry2::kCardZero"],
+            ["数字1", "Sentry2::kCardOne"],
+            ["数字2", "Sentry2::kCardTwo"],
+            ["数字3", "Sentry2::kCardThree"],
+            ["数字4", "Sentry2::kCardFour"],
+            ["数字5", "Sentry2::kCardFive"],
+            ["数字6", "Sentry2::kCardSix"],
+            ["数字7", "Sentry2::kCardSeven"],
+            ["数字8", "Sentry2::kCardEight"],
+            ["数字9", "Sentry2::kCardNine"]
+        ]
+    },
+    "Class20_LABLE": {
+        "menu": [
+            ["飞机", "Sentry2::kAirplane"],
+            ["自行车", "Sentry2::kBicycle"],
+            ["鸟", "Sentry2::kBird"],
+            ["船", "Sentry2::kBoat"],
+            ["瓶子", "Sentry2::kBottle"],
+            ["公交车", "Sentry2::kBus"],
+            ["汽车", "Sentry2::kCar"],
+            ["猫", "Sentry2::kCat"],
+            ["椅子", "Sentry2::kChair"],
+            ["牛", "Sentry2::kCow"],
+            ["餐桌", "Sentry2::kDiningTable"],
+            ["狗", "Sentry2::kDog"],
+            ["马", "Sentry2::kHorse"],
+            ["摩托车", "Sentry2::kMotorBike"],
+            ["人", "Sentry2::kPerson"],
+            ["盆栽", "Sentry2::kPottedPlant"],
+            ["沙发", "Sentry2::kSofa"],
+            ["火车", "Sentry2::kTrain"],
+            ["电视", "Sentry2::kTvMonitor"]
+        ]
+    },
+    "OBJ_INFO": {
+        "menu": [
+            ["X坐标", "kXValue"],
+            ["Y坐标", "kYValue"],
+            ["宽度", "kWidthValue"],
+            ["高度", "kHeightValue"],
+            ["标签", "kLabel"]
+        ]
+    },
+    "OBJ_INFO_COLOR": {
+        "menu": [
+            ["标签", "kLabel"],
+            ["红色值", "kRValue"],
+            ["绿色值", "kGValue"],
+            ["蓝色值", "kBValue"]
+        ]
+    },
+    "OBJ_INFO_LINE": {
+        "menu": [
+            ["终点X坐标", "kXValue"],
+            ["终点Y坐标", "kYValue"],
+            ["起点X坐标", "kWidthValue"],
+            ["起点Y坐标", "kHeightValue"],
+            ["倾斜角", "kLabel"]
+        ]
+    },
+    "OBJ_INFO_QR": {
+        "menu": [
+            ["X坐标", "kXValue"],
+            ["Y坐标", "kYValue"],
+            ["宽度", "kWidthValue"],
+            ["高度", "kHeightValue"]
+        ]
+    },
+    "RGB_EFFECT": {
+        "menu": [
+            ["关闭", "0"],
+            ["常亮", "1"],
+            ["呼吸", "2"],
+            ["闪烁", "3"],
+            ["流水", "4"],
+            ["彩虹", "5"]
+        ]
+    }
+}
